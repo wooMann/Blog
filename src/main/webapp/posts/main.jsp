@@ -4,6 +4,6 @@
     <title>Title</title>
 </head>
 <body>
-HI
+메인페이지
 </body>
 </html>

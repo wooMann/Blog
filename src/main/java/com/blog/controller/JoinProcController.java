@@ -1,6 +1,7 @@
 package com.blog.controller;
 
 
+import com.blog.dto.user.UserDTO;
 import com.blog.entity.User;
 import com.blog.service.MailService;
 import com.blog.service.UserService;
@@ -18,6 +19,14 @@ public class JoinProcController implements Controller {
         return "POST";
     }
 
+    private UserDTO makeDTO(HttpServletRequest request){
+        UserDTO dto = new UserDTO();
+        dto.setEmail(request.getParameter("email"));
+        dto.setPassword(request.getParameter("password"));
+        dto.setName(request.getParameter("name"));
+        return dto;
+    }
+
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         UserService userService = new UserService(request);
@@ -27,7 +36,7 @@ public class JoinProcController implements Controller {
 
         User findResult = userService.findUserByEmail();
         if (findResult == null){
-            User joinResult = userService.join();
+            User joinResult = userService.join(makeDTO(request));
             if(joinResult == null){
                 request.setAttribute("path","/login.do");
                 request.setAttribute("message","회원가입 실패.");

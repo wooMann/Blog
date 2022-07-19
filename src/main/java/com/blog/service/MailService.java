@@ -31,11 +31,12 @@ public class MailService {
                     }
                 });
         try {
+            String content = "회원가입 확인을 해주세요 - " + "<a href = 'http://localhost:8081/joinConfirm.do?code="+code+"'> 확인 </a>";
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(from));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
             message.setSubject("회원가입 확인메일입니다");
-            message.setText("회원가입확인을 해주세요 - " + "http://localhost:8081/joinConfirm.do?code="+code);
+            message.setContent(content,"text/html; charset=UTF-8");
             Transport.send(message);
             System.out.println("메일발송완료");
         } catch (MessagingException e) {
