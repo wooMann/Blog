@@ -2,7 +2,7 @@
 
 
 ## Blog ERD
-![image](https://user-images.githubusercontent.com/108926837/178678865-06d06078-3b20-4d86-927b-359f626ebb2f.png)
+![image](https://user-images.githubusercontent.com/108926837/179898453-0098c57f-dd7b-4584-800a-9566c604e1ad.png)
 
 ## 프로젝트 계획 이유
 > Hibernate를 이용한 블로그 입니다.  
