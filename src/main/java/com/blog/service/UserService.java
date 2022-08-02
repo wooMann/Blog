@@ -3,6 +3,8 @@ package com.blog.service;
 import com.blog.DAO.UserDAO;
 import com.blog.dto.user.UserDTO;
 import com.blog.entity.User;
+import com.blog.exception.FindByEmailServiceException;
+import com.blog.exception.LoginServiceException;
 import com.blog.queryDAO.UserQueryDAO;
 import com.blog.util.HibernateUtil;
 import com.blog.util.Sha256HashGenerator;
@@ -32,24 +34,31 @@ public class UserService {
         return userDAO.create(user);
     }
 
-    public boolean findByEmail(UserDTO dto) {
+    public boolean findByEmail(UserDTO dto) throws FindByEmailServiceException {
         EntityManager entityManager = HibernateUtil.getEntityManagerFactory().createEntityManager();
-
+        boolean result = false;
         List<User> list = entityManager.createNamedQuery("User.findByEmail")
                 .setParameter("email", dto.getEmail()).getResultList();
-        return list.size() > 0 ? true : false;
+        if (list.size() > 0){
+            return true;
+        }else {
+            throw new FindByEmailServiceException("존재하지 않는 이메일 : " + dto.getEmail());
+        }
     }
 
     public User login(UserDTO dto) {
         EntityManager entityManager = HibernateUtil.getEntityManagerFactory().createEntityManager();
-        User user = makeEntity(dto);
 
         List<User> list = entityManager.createNamedQuery("User.loginCheck").
                 setParameter("email", dto.getEmail()).
                 setParameter("password", dto.getPassword()).
                 getResultList();
         entityManager.close();
-        return list.size() > 0 ? list.get(0) : null;
+        if(list.size() > 0){
+            return list.get(0);
+        }else {
+            throw new LoginServiceException("비밀번호가 틀렸습니다.");
+        }
     }
 
     public User updateUser(UserDTO dto) {
