@@ -29,7 +29,7 @@ public class JoinProcController implements Controller {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        UserService userService = new UserService(request);
+        UserService userService = new UserService();
         MailService mailService = new MailService();
         UUID uuid = UUID.randomUUID();
         String code[] = String.valueOf(uuid).split("-");

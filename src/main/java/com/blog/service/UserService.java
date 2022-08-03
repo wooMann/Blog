@@ -16,7 +16,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 public class UserService {
-    private final HttpServletRequest request;
+
     private UserDAO userDAO = new UserDAO();
     private UserQueryDAO userQueryDAO = new UserQueryDAO();
 
@@ -46,7 +46,7 @@ public class UserService {
         }
     }
 
-    public User login(UserDTO dto) {
+    public User login(UserDTO dto) throws LoginServiceException {
         EntityManager entityManager = HibernateUtil.getEntityManagerFactory().createEntityManager();
 
         List<User> list = entityManager.createNamedQuery("User.loginCheck").
@@ -73,9 +73,6 @@ public class UserService {
 
     public boolean deleteUser() {
         User user = new User();
-        user.setId(Integer.valueOf(request.getParameter("id")));
-        user.setName(request.getParameter("name"));
-        user.setPassword(request.getParameter("password"));
 
         if (userQueryDAO.findUserByid(user.getId()) == null) {
             return false;
@@ -87,9 +84,6 @@ public class UserService {
 
     public User findUserByEmail() {
         User user = new User();
-        user.setEmail(request.getParameter("email"));
         return userQueryDAO.findUser(user);
-
-
     }
 }

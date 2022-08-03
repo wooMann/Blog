@@ -1,6 +1,7 @@
 package com.blog.exception;
 
-import org.apache.log4j.Logger;
+
+import java.util.logging.Logger;
 
 public class FindByEmailServiceException extends RuntimeException{
     private Logger logger = Logger.getLogger("log4j.properties");
