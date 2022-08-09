@@ -31,7 +31,7 @@ public class MailService {
                     }
                 });
         try {
-            String content = "회원가입 확인을 해주세요 - " + "<a href = 'http://localhost:8081/joinConfirm.do?code="+code+"'> 확인 </a>";
+            String content = "회원가입 확인을 해주세요 - " + "<a href = 'http://localhost:8081/joinConfirm.do?token="+code+"'> 확인 </a>";
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(from));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));

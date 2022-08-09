@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.logging.Level;
 
 @RequiredArgsConstructor
 public class UserService {
@@ -42,7 +43,7 @@ public class UserService {
         if (list.size() > 0){
             return true;
         }else {
-            throw new FindByEmailServiceException("존재하지 않는 이메일 : " + dto.getEmail());
+            throw new FindByEmailServiceException("존재하지 않는 이메일 : " + dto.toString(),Level.INFO);
         }
     }
 
@@ -57,7 +58,7 @@ public class UserService {
         if(list.size() > 0){
             return list.get(0);
         }else {
-            throw new LoginServiceException("비밀번호가 틀렸습니다.");
+            throw new LoginServiceException("비밀번호가 틀렸습니다."+ dto.toString(), Level.INFO);
         }
     }
 

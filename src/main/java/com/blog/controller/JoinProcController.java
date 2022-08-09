@@ -1,8 +1,11 @@
 package com.blog.controller;
 
 
+import com.blog.dto.EmailTokensDTO;
 import com.blog.dto.user.UserDTO;
+import com.blog.entity.EmailTokens;
 import com.blog.entity.User;
+import com.blog.service.EmailTokenService;
 import com.blog.service.MailService;
 import com.blog.service.UserService;
 
@@ -27,10 +30,20 @@ public class JoinProcController implements Controller {
         return dto;
     }
 
+    private EmailTokensDTO makeEmailTokensDTO(int userId , String token){
+        EmailTokensDTO dto = new EmailTokensDTO();
+        dto.setId(userId);
+        dto.setToken(token);
+        dto.setState(0);
+
+        return dto;
+    }
+
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         UserService userService = new UserService();
         MailService mailService = new MailService();
+        EmailTokenService emailTokenService = new EmailTokenService();
         UUID uuid = UUID.randomUUID();
         String code[] = String.valueOf(uuid).split("-");
 
@@ -44,6 +57,7 @@ public class JoinProcController implements Controller {
             }
             request.setAttribute("path","/login.do");
             request.setAttribute("message","회원가입 확인 이메일이 전송되었습니다.");
+            emailTokenService.createEmailToken(makeEmailTokensDTO(joinResult.getId(), code[0]));
             mailService.sendMail(joinResult,code[0]);
 
         }else {
