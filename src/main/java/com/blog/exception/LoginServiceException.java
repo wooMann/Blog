@@ -3,11 +3,9 @@ package com.blog.exception;
 
 import java.util.logging.Logger;
 
-public class LoginServiceException extends RuntimeException{
-    private Logger logger = Logger.getLogger("log4j.properties");
+public class LoginServiceException extends BlogCustomException{
 
     public LoginServiceException(String message){
-        super(message);
-        logger.info(message);
+        super(message,LogType.ERROR);
     }
 }
