@@ -5,6 +5,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
 import java.util.Date;
 
 @Entity
@@ -13,7 +14,8 @@ import java.util.Date;
 @Setter
 @ToString
 @NamedQueries({
-        @NamedQuery(name = "EmailTokens.updateByTokens",query = "UPDATE  ")
+        @NamedQuery(name = "EmailTokens.updateEmailTokensByTokens" , query = "update EmailTokens set authAt = :authat, state = :state where token =:token"),
+        @NamedQuery(name = "EmailTokens.checkEmailTokensByUserId" , query = "select e from EmailTokens e where e.user.id =:userId")
 })
 public class EmailTokens {
     @Id
@@ -22,7 +24,7 @@ public class EmailTokens {
     private Integer id;
 
     @OneToOne
-    @JoinColumn()
+    @JoinColumn(name = "user_id")
     private User user;
 
     @Column(name = "token")

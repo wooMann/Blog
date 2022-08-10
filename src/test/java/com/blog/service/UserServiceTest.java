@@ -2,9 +2,7 @@ package com.blog.service;
 
 import com.blog.dto.user.UserDTO;
 import com.blog.entity.User;
-import com.blog.exception.FindByEmailServiceException;
-import com.blog.exception.LoginServiceException;
-import com.sun.org.apache.xpath.internal.operations.Bool;
+import com.blog.exception.ServiceException;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -13,38 +11,67 @@ public class UserServiceTest {
 
     UserService userService = new UserService();
 
-    private UserDTO userDTO() {
+    @Test
+    public void joinSuccess() {
         UserDTO dto = new UserDTO();
         dto.setEmail("woo@naver.com");
         dto.setPassword("123123");
         dto.setName("우맨");
-        return dto;
+        User result = userService.join(dto);
+        assertNotEquals(dto, result);
+        assertEquals(User.class , result.getClass());
     }
 
     @Test
-    public void join() {
-        User result = userService.join(userDTO());
+    public void joinFail() {
+        UserDTO dto = new UserDTO();
+        dto.setEmail("");
+        dto.setPassword("");
+        dto.setName("우맨");
+        User result = userService.join(dto);
         assertEquals(User.class, result);
     }
 
     @Test
-    public void findByEmail() {
+    public void findByEmailSuccess() {
+        UserDTO dto = new UserDTO();
+        dto.setEmail("woo@naver.com");
         try {
-            boolean result = userService.findByEmail(userDTO());
-            assertEquals(Boolean.class, result);
-        } catch (FindByEmailServiceException e) {
+            boolean result = userService.findByEmail(dto);
+            assertTrue(result);
+        }catch (ServiceException e){
+            e.printStackTrace();
+        }
+
+    }
+    @Test
+    public void findByEmailFail() {
+        UserDTO dto = new UserDTO();
+        dto.setEmail("woo@naver11.comp");
+        try {
+            boolean result = userService.findByEmail(dto);
+            assertFalse(result);
+        }catch (ServiceException e){
             e.printStackTrace();
         }
     }
+    @Test
+    public void loginSuccess() {
+        UserDTO dto = new UserDTO();
+        dto.setEmail("12");
+        dto.setPassword("12");
+        User result = userService.login(dto);
+        assertEquals(User.class, result.getClass());
+        assertEquals(dto.getEmail(),result.getEmail());
+    }
 
     @Test
-    public void login() {
-        try {
-            User result = userService.login(userDTO());
-            assertEquals(User.class, result);
-        } catch (LoginServiceException e) {
-            e.printStackTrace();
-        }
+    public void loginFail() {
+        UserDTO dto = new UserDTO();
+        dto.setEmail("woo@naver.com");
+        dto.setPassword("12312312fgv1v");
+        User result = userService.login(dto);
+        assertNull(result);
     }
 
 

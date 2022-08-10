@@ -1,5 +1,6 @@
 package com.blog.controller;
 
+import com.blog.router.EmailTokensRouter;
 import com.blog.router.MainRouter;
 
 import javax.servlet.ServletException;
@@ -17,6 +18,7 @@ public class FrontController extends HttpServlet {
     @Override
     public void init() throws ServletException {
         new MainRouter(controllerMap);
+        new EmailTokensRouter(controllerMap);
     }
 
     @Override
@@ -39,7 +41,6 @@ public class FrontController extends HttpServlet {
         }else {
             System.out.println("찾을수 없는 페이지 입니다.");
         }
-
     }
 
     @Override

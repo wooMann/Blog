@@ -25,7 +25,6 @@ public class UserQueryDAO {
              PreparedStatement ps = connection.prepareStatement(sql);
              ResultSet rs = ps.executeQuery();
         ) {
-            System.out.println(sql);
             return rs.next() ? makeUser(rs) : null;
         } catch (SQLException e) {
             e.printStackTrace();

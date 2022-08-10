@@ -3,17 +3,16 @@ package com.blog.service;
 import com.blog.DAO.UserDAO;
 import com.blog.dto.user.UserDTO;
 import com.blog.entity.User;
-import com.blog.exception.FindByEmailServiceException;
-import com.blog.exception.LoginServiceException;
+import com.blog.exception.ServiceException;
 import com.blog.queryDAO.UserQueryDAO;
 import com.blog.util.HibernateUtil;
 import com.blog.util.Sha256HashGenerator;
 import lombok.RequiredArgsConstructor;
+import org.apache.log4j.Level;
 
 import javax.persistence.EntityManager;
-import javax.servlet.http.HttpServletRequest;
+import javax.sql.rowset.serial.SerialException;
 import java.util.List;
-import java.util.logging.Level;
 
 @RequiredArgsConstructor
 public class UserService {
@@ -35,19 +34,25 @@ public class UserService {
         return userDAO.create(user);
     }
 
-    public boolean findByEmail(UserDTO dto) throws FindByEmailServiceException {
+    public boolean findByEmail(UserDTO dto) throws ServiceException {
         EntityManager entityManager = HibernateUtil.getEntityManagerFactory().createEntityManager();
-        boolean result = false;
         List<User> list = entityManager.createNamedQuery("User.findByEmail")
                 .setParameter("email", dto.getEmail()).getResultList();
         if (list.size() > 0){
             return true;
         }else {
-            throw new FindByEmailServiceException("존재하지 않는 이메일 : " + dto.toString(),Level.INFO);
+            //return false;
+            throw new ServiceException("해당 email을 찾을수없습니다.", Level.INFO);
         }
     }
 
-    public User login(UserDTO dto) throws LoginServiceException {
+    public boolean checkEmailToken(Integer userId){
+       User result =  userDAO.find(User.class,userId);
+       if(result.getEmailTokens().getAuthAt() == null) return false;
+       return true;
+    }
+
+    public User login(UserDTO dto)  {
         EntityManager entityManager = HibernateUtil.getEntityManagerFactory().createEntityManager();
 
         List<User> list = entityManager.createNamedQuery("User.loginCheck").
@@ -58,28 +63,7 @@ public class UserService {
         if(list.size() > 0){
             return list.get(0);
         }else {
-            throw new LoginServiceException("비밀번호가 틀렸습니다."+ dto.toString(), Level.INFO);
-        }
-    }
-
-    public User updateUser(UserDTO dto) {
-        User user = makeEntity(dto);
-
-        if (userQueryDAO.findUserByid(user.getId()) == null) {
             return null;
-        } else {
-            return userQueryDAO.updateUser(user);
-        }
-    }
-
-    public boolean deleteUser() {
-        User user = new User();
-
-        if (userQueryDAO.findUserByid(user.getId()) == null) {
-            return false;
-        } else {
-            userQueryDAO.deleteUser(user.getId());
-            return true;
         }
     }
 

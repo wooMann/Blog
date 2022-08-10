@@ -1,6 +1,7 @@
 package com.blog.exception;
 
-import java.util.logging.Level;
+
+import org.apache.log4j.Level;
 
 public class ServiceException extends BlogCustomException{
     public ServiceException(String message, Level level) {

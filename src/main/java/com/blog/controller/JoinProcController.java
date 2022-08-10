@@ -12,8 +12,10 @@ import com.blog.service.UserService;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.UUID;
+
 
 
 public class JoinProcController implements Controller {
@@ -32,7 +34,7 @@ public class JoinProcController implements Controller {
 
     private EmailTokensDTO makeEmailTokensDTO(int userId , String token){
         EmailTokensDTO dto = new EmailTokensDTO();
-        dto.setId(userId);
+        dto.setUserId(userId);
         dto.setToken(token);
         dto.setState(0);
 

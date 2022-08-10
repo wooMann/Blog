@@ -3,8 +3,6 @@ package com.blog.controller;
 
 import com.blog.dto.user.UserDTO;
 import com.blog.entity.User;
-import com.blog.exception.FindByEmailServiceException;
-import com.blog.exception.LoginServiceException;
 import com.blog.service.UserService;
 import com.blog.util.Sha256HashGenerator;
 
@@ -37,21 +35,30 @@ public class LoginProcController implements Controller {
         UserDTO userDTO = makeDTO(request);
         User result = new User();
 
-
         try {
-            userService.findByEmail(userDTO);
-            result = userService.login(userDTO);
-            request.setAttribute("path", "/main.do");
-            session.setAttribute("SESSION_USER_ID", result.getId());
-            session.setAttribute("SESSION_USER_EMAIL", result.getEmail());
-            session.setAttribute("SESSION_USER_NAME", result.getName());
+            boolean findResult = userService.findByEmail(userDTO);
+            User loginResult = userService.login(userDTO);
 
-        } catch (FindByEmailServiceException e) {
-            request.setAttribute("path", "javascript:history.back()");
-            request.setAttribute("message", "존재하지 않는 회원입니다.");
-        } catch (LoginServiceException e) {
-            request.setAttribute("path", "javascript:history.back()");
-            request.setAttribute("message", "비밀번호를 확인해 주세요");
+            if (!findResult) {
+                request.setAttribute("path", "javascript:history.back()");
+                request.setAttribute("message", "존재하지 않는 회원입니다.");
+            } else if (loginResult == null) {
+                request.setAttribute("path", "javascript:history.back()");
+                request.setAttribute("message", "비밀번호를 확인해 주세요");
+            } else {
+                boolean tokenResult = userService.checkEmailToken(loginResult.getId());
+                if (!tokenResult) {
+                    request.setAttribute("path", "javascript:history.back()");
+                    request.setAttribute("message", "회원가입 이메일 확인을 해주세요");
+                }else {
+                    request.setAttribute("path", "/main.do");
+                    session.setAttribute("SESSION_USER_ID", result.getId());
+                    session.setAttribute("SESSION_USER_EMAIL", result.getEmail());
+                    session.setAttribute("SESSION_USER_NAME", result.getName());
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return "/posts/pathHandler.jsp";
     }
