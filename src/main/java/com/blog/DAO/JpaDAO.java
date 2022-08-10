@@ -1,5 +1,7 @@
 package com.blog.DAO;
+import com.blog.exception.DAOException;
 import com.blog.util.HibernateUtil;
+import org.apache.log4j.Level;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -22,7 +24,7 @@ public class JpaDAO<E> {
         } catch (Exception e) {
             e.printStackTrace();
             entityTransaction.rollback();
-            return null;
+            throw new DAOException("Create 에러 발생" + entity.toString() , Level.ERROR);
         } finally {
             entityManager.close();
         }

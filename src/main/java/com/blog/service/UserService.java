@@ -9,9 +9,8 @@ import com.blog.util.HibernateUtil;
 import com.blog.util.Sha256HashGenerator;
 import lombok.RequiredArgsConstructor;
 import org.apache.log4j.Level;
-
 import javax.persistence.EntityManager;
-import javax.sql.rowset.serial.SerialException;
+
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -34,15 +33,14 @@ public class UserService {
         return userDAO.create(user);
     }
 
-    public boolean findByEmail(UserDTO dto) throws ServiceException {
+    public boolean findByEmail(UserDTO dto){
         EntityManager entityManager = HibernateUtil.getEntityManagerFactory().createEntityManager();
         List<User> list = entityManager.createNamedQuery("User.findByEmail")
                 .setParameter("email", dto.getEmail()).getResultList();
         if (list.size() > 0){
             return true;
         }else {
-            //return false;
-            throw new ServiceException("해당 email을 찾을수없습니다.", Level.INFO);
+            return false;
         }
     }
 
