@@ -11,12 +11,12 @@ import javax.persistence.*;
 @Setter
 @Getter
 @ToString
-public class Posts {
+public class Post {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id" , nullable = false, unique = true)
-    private String id;
+    private Integer id;
 
     @Column(name = "title")
     private String title;

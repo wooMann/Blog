@@ -12,15 +12,17 @@ import javax.persistence.*;
 @Setter
 @ToString
 public class Comment {
+
     @Id
-    @Column(name = "id", nullable = false)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false, unique = true)
+    private Integer id;
 
     @Column(name = "body")
     private String body;
 
     @ManyToOne
-    private Posts posts;
+    private Post post;
 
     @ManyToOne
     private User user;
@@ -28,6 +30,5 @@ public class Comment {
     @Column(name = "user_ip")
     private String userIp;
 
-    @ManyToOne
-    private Comment comment;
+
 }

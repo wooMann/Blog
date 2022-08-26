@@ -8,6 +8,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import java.util.List;
+import java.util.Optional;
 
 public class JpaDAO<E> {
     protected EntityManagerFactory entityManagerFactory = HibernateUtil.getEntityManagerFactory();
@@ -47,15 +48,11 @@ public class JpaDAO<E> {
         return entity;
     }
 
-    public E find(Class<E> type, Object id) {
+    public Optional<E> find(Class<E> type, Object id) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
-        E entity = entityManager.find(type, id);
+        Optional<E> entity = Optional.ofNullable(entityManager.find(type, id));
         entityManager.close();
-        if (entity == null) {
-            return null;
-        } else {
-            return entity;
-        }
+        return entity;
     }
 
     public boolean delete(Class<E> type, Object id) {

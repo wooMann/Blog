@@ -12,6 +12,7 @@ import org.apache.log4j.Level;
 import javax.persistence.EntityManager;
 
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 public class UserService {
@@ -45,8 +46,8 @@ public class UserService {
     }
 
     public boolean checkEmailToken(Integer userId){
-       User result =  userDAO.find(User.class,userId);
-       if(result.getEmailTokens().getAuthAt() == null) return false;
+       Optional<User> result =  userDAO.find(User.class,userId);
+       if(result.get().getEmailTokens().getAuthAt() == null) return false;
        return true;
     }
 
