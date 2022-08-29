@@ -29,4 +29,12 @@ public class CommentService {
     public Comment createComment(CommentDTO dto){
         return commentDAO.create(makeEntity(dto));
     }
+
+    public Comment updateComment(CommentDTO dto){
+        Comment comment = makeEntity(dto);
+        comment.setUserIp(dto.getUserIp());
+        comment.setId(dto.getCommentId());
+
+        return commentDAO.update(comment);
+    }
 }

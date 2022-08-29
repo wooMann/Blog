@@ -13,6 +13,6 @@ public class CommentDTO {
     private String body;
     private Integer postId;
     private Integer userId;
+    private Integer commentId;
     private String userIp;
-
 }
