@@ -13,7 +13,7 @@ import java.util.Optional;
 public class JpaDAO<E> {
     protected EntityManagerFactory entityManagerFactory = HibernateUtil.getEntityManagerFactory();
 
-    public E create(E entity) {
+    public Optional<E> create(E entity) throws DAOException{
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction entityTransaction = entityManager.getTransaction();
 
@@ -21,7 +21,7 @@ public class JpaDAO<E> {
             entityTransaction.begin();
             entityManager.persist(entity);
             entityTransaction.commit();
-            return entity;
+            return Optional.ofNullable(entity);
         } catch (Exception e) {
             e.printStackTrace();
             entityTransaction.rollback();
@@ -74,4 +74,12 @@ public class JpaDAO<E> {
             entityManager.close();
         }
     }
+
+    public List<E> findAllWithNamedQuery(String queryName){
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        Query query = entityManager.createNamedQuery(queryName);
+        return query.getResultList();
+    }
+
+
 }

@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import java.io.IOException;
+import java.util.Optional;
 import java.util.UUID;
 
 
@@ -51,7 +52,7 @@ public class JoinProcController implements Controller {
 
         User findResult = userService.findUserByEmail();
         if (findResult == null){
-            User joinResult = userService.join(makeDTO(request));
+            Optional<User> joinResult = userService.join(makeDTO(request));
             if(joinResult == null){
                 request.setAttribute("path","/login.do");
                 request.setAttribute("message","회원가입 실패.");
@@ -59,8 +60,8 @@ public class JoinProcController implements Controller {
             }
             request.setAttribute("path","/login.do");
             request.setAttribute("message","회원가입 확인 이메일이 전송되었습니다.");
-            emailTokenService.createEmailToken(makeEmailTokensDTO(joinResult.getId(), code[0]));
-            mailService.sendMail(joinResult,code[0]);
+            emailTokenService.createEmailToken(makeEmailTokensDTO(joinResult.get().getId(), code[0]));
+            mailService.sendMail(joinResult.get(),code[0]);
 
         }else {
             request.setAttribute("path","javascript:history.back()");

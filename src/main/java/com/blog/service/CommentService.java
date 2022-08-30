@@ -5,7 +5,12 @@ import com.blog.dto.comment.CommentDTO;
 import com.blog.entity.Comment;
 import com.blog.entity.Post;
 import com.blog.entity.User;
-import javafx.geometry.Pos;
+import com.blog.util.HibernateUtil;
+
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+import java.util.List;
+import java.util.Optional;
 
 public class CommentService {
     CommentDAO commentDAO = new CommentDAO();
@@ -26,15 +31,19 @@ public class CommentService {
         return comment;
     }
 
-    public Comment createComment(CommentDTO dto){
+    public Optional<Comment> createComment(CommentDTO dto){
         return commentDAO.create(makeEntity(dto));
     }
-
     public Comment updateComment(CommentDTO dto){
         Comment comment = makeEntity(dto);
         comment.setUserIp(dto.getUserIp());
         comment.setId(dto.getCommentId());
 
         return commentDAO.update(comment);
+    }
+    public List<Comment> findAllByPostId(Integer postId){
+        EntityManager entityManager = HibernateUtil.getEntityManagerFactory().createEntityManager();
+        Query query = entityManager.createNamedQuery("Comment.findByPostId").setParameter(postId,postId);
+        return query.getResultList();
     }
 }

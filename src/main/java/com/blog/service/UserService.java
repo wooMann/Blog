@@ -28,7 +28,11 @@ public class UserService {
         return user;
     }
 
-    public User join(UserDTO dto) {
+    public List<User> findAllUser(){
+        return userDAO.findAllWithNamedQuery("User.findAllUser");
+    }
+
+    public Optional<User> join(UserDTO dto) {
         User user = makeEntity(dto);
         user.setName(dto.getName());
         return userDAO.create(user);
@@ -39,8 +43,10 @@ public class UserService {
         List<User> list = entityManager.createNamedQuery("User.findByEmail")
                 .setParameter("email", dto.getEmail()).getResultList();
         if (list.size() > 0){
+            entityManager.close();
             return true;
         }else {
+            entityManager.close();
             return false;
         }
     }
@@ -60,8 +66,10 @@ public class UserService {
                 getResultList();
         entityManager.close();
         if(list.size() > 0){
+            entityManager.close();
             return list.get(0);
         }else {
+            entityManager.close();
             return null;
         }
     }
@@ -69,5 +77,19 @@ public class UserService {
     public User findUserByEmail() {
         User user = new User();
         return userQueryDAO.findUser(user);
+    }
+
+    public User updateUser(UserDTO dto){
+        User user = makeEntity(dto);
+        user.setId(dto.getId());
+
+        return userDAO.update(user);
+    }
+
+    public boolean deleteUser(UserDTO dto){
+        User user = makeEntity(dto);
+        user.setId(dto.getId());
+
+        return userDAO.delete(User.class,dto.getId());
     }
 }

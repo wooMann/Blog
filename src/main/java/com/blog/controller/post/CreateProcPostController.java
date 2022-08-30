@@ -1,20 +1,44 @@
 package com.blog.controller.post;
 
 import com.blog.controller.Controller;
+import com.blog.dto.post.PostDTO;
+import com.blog.entity.Post;
+import com.blog.service.PostService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Optional;
 
 public class CreateProcPostController implements Controller {
     @Override
     public String httpMethod() {
-        return null;
+        return "POST";
     }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        return null;
+        PostService postService = new PostService();
+        boolean result =  postService.createPost(makeDTO(request));
+        if (result){
+            request.setAttribute("path","/posts/list.do");
+        }else {
+            request.setAttribute("message","글 등록에 실패 했습니다.");
+            request.setAttribute("path","javascript:history.back()");
+        }
+        return "/posts/pathHandler.jsp";
+    }
+
+    private PostDTO makeDTO(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        PostDTO postDTO = new PostDTO();
+
+        postDTO.setUserId((Integer) session.getAttribute("userId"));
+        postDTO.setTitle(request.getParameter("title"));
+        postDTO.setBody(request.getParameter("body"));
+
+        return postDTO;
     }
 }

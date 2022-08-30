@@ -13,7 +13,8 @@ import javax.persistence.*;
 @ToString
 @NamedQueries({
         @NamedQuery(name = "User.findByEmail",query = "SELECT u FROM User u where u.email = :email"),
-        @NamedQuery(name = "User.loginCheck",query = "SELECT u FROM User u where u.email = :email AND u.password = :password ")
+        @NamedQuery(name = "User.loginCheck",query = "SELECT u FROM User u where u.email = :email AND u.password = :password "),
+        @NamedQuery(name = "User.findAllUser",query = "select u from User u")
 })
 public class User {
 

@@ -10,7 +10,7 @@ import java.io.IOException;
 public class CreatePostController implements Controller {
     @Override
     public String httpMethod() {
-        return null;
+        return "GET";
     }
 
     @Override

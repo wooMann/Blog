@@ -11,6 +11,9 @@ import javax.persistence.*;
 @Getter
 @Setter
 @ToString
+@NamedQueries({
+        @NamedQuery(name = "Comment.findByPostId",query = "select c from Comment c where c.post.id = :postId")
+})
 public class Comment {
 
     @Id

@@ -11,6 +11,9 @@ import javax.persistence.*;
 @Setter
 @Getter
 @ToString
+@NamedQueries({
+        @NamedQuery(name = "Post.findAll",query = "select p from Post p")
+})
 public class Post {
 
     @Id
@@ -18,7 +21,7 @@ public class Post {
     @Column(name = "id" , nullable = false, unique = true)
     private Integer id;
 
-    @Column(name = "title")
+    @Column(name = "title",nullable = false)
     private String title;
 
     @Column(name = "body")
