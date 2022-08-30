@@ -23,7 +23,7 @@ public class CreateProcPostController implements Controller {
         PostService postService = new PostService();
         boolean result =  postService.createPost(makeDTO(request));
         if (result){
-            request.setAttribute("path","/posts/list.do");
+            request.setAttribute("path","/post/list.do");
         }else {
             request.setAttribute("message","글 등록에 실패 했습니다.");
             request.setAttribute("path","javascript:history.back()");
@@ -35,7 +35,7 @@ public class CreateProcPostController implements Controller {
         HttpSession session = request.getSession();
         PostDTO postDTO = new PostDTO();
 
-        postDTO.setUserId((Integer) session.getAttribute("userId"));
+        postDTO.setUserId((Integer) session.getAttribute("SESSION_USER_ID"));
         postDTO.setTitle(request.getParameter("title"));
         postDTO.setBody(request.getParameter("body"));
 

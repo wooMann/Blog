@@ -52,9 +52,9 @@ public class LoginProcController implements Controller {
                     request.setAttribute("message", "회원가입 이메일 확인을 해주세요");
                 }else {
                     request.setAttribute("path", "/main.do");
-                    session.setAttribute("SESSION_USER_ID", result.getId());
-                    session.setAttribute("SESSION_USER_EMAIL", result.getEmail());
-                    session.setAttribute("SESSION_USER_NAME", result.getName());
+                    session.setAttribute("SESSION_USER_ID", loginResult.getId());
+                    session.setAttribute("SESSION_USER_EMAIL", loginResult.getEmail());
+                    session.setAttribute("SESSION_USER_NAME", loginResult.getName());
                 }
             }
         } catch (Exception e) {

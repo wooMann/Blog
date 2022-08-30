@@ -6,6 +6,7 @@ import com.blog.entity.Post;
 import com.blog.entity.User;
 import com.blog.exception.DAOException;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,7 +17,7 @@ public class PostService {
         Post post = new Post();
 
         User user = new User();
-        user.setId(dto.getId());
+        user.setId(dto.getUserId());
 
         post.setBody(dto.getBody());
         post.setTitle(dto.getTitle());
@@ -26,6 +27,7 @@ public class PostService {
 
     public boolean createPost(PostDTO dto){
         Post post = makeEntity(dto);
+        post.setCreatedAt(new Date());
         try {
             postDAO.create(post);
             return true;
@@ -37,6 +39,7 @@ public class PostService {
     public Post updatePost(PostDTO dto){
         Post post = makeEntity(dto);
         post.setId(dto.getPostId());
+        post.setUpdatedAt(new Date());
         return postDAO.update(post);
     }
 

@@ -1,13 +1,17 @@
 package com.blog.controller.post;
 
 import com.blog.controller.Controller;
+import com.blog.entity.Post;
+import com.blog.service.PostService;
+import javafx.geometry.Pos;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
-public class CreatePostController implements Controller {
+public class PostListController implements Controller {
     @Override
     public String httpMethod() {
         return "GET";
@@ -15,6 +19,9 @@ public class CreatePostController implements Controller {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        return "/posts/post/createPost.jsp";
+        PostService postService = new PostService();
+        List<Post> postList =  postService.finaAllPost();
+        request.setAttribute("postList",postList);
+        return "/posts/post/postsList.jsp";
     }
 }

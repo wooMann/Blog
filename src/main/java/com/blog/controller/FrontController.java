@@ -2,6 +2,8 @@ package com.blog.controller;
 
 import com.blog.router.EmailTokensRouter;
 import com.blog.router.MainRouter;
+import com.blog.router.PostRouter;
+import com.blog.router.UserRouter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,6 +21,8 @@ public class FrontController extends HttpServlet {
     public void init() throws ServletException {
         new MainRouter(controllerMap);
         new EmailTokensRouter(controllerMap);
+        new PostRouter(controllerMap);
+        new UserRouter(controllerMap);
     }
 
     @Override
@@ -37,7 +41,6 @@ public class FrontController extends HttpServlet {
             }else {
                 System.out.println("잘못된 요청입니다");
             }
-
         }else {
             System.out.println("찾을수 없는 페이지 입니다.");
         }

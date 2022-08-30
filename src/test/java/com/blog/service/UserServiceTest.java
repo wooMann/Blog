@@ -3,7 +3,10 @@ package com.blog.service;
 import com.blog.dto.user.UserDTO;
 import com.blog.entity.User;
 import com.blog.exception.ServiceException;
+import com.blog.util.Sha256HashGenerator;
 import org.junit.Test;
+
+import java.util.Optional;
 
 import static org.junit.Assert.*;
 
@@ -14,12 +17,13 @@ public class UserServiceTest {
     @Test
     public void joinSuccess() {
         UserDTO dto = new UserDTO();
-        dto.setEmail("woo@naver.com");
+        System.out.println(Sha256HashGenerator.hashGenerate("123"));
+      /*  dto.setEmail("wookw123@naver.com");
         dto.setPassword("123123");
         dto.setName("우맨");
-        User result = userService.join(dto);
+        Optional<User> result = userService.join(dto);
         assertNotEquals(dto, result);
-        assertEquals(User.class , result.getClass());
+        assertEquals(User.class , result.get().getClass());*/
     }
 
     @Test
@@ -28,8 +32,8 @@ public class UserServiceTest {
         dto.setEmail("");
         dto.setPassword("");
         dto.setName("우맨");
-        User result = userService.join(dto);
-        assertEquals(User.class, result);
+        Optional<User> result = userService.join(dto);
+        assertEquals(User.class, result.get().getClass());
     }
 
     @Test

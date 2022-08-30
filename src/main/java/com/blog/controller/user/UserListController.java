@@ -1,4 +1,4 @@
-package com.blog.controller.post;
+package com.blog.controller.user;
 
 import com.blog.controller.Controller;
 
@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class CreatePostController implements Controller {
+public class UserListController implements Controller {
     @Override
     public String httpMethod() {
         return "GET";
@@ -15,6 +15,6 @@ public class CreatePostController implements Controller {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        return "/posts/post/createPost.jsp";
+        return null;
     }
 }

@@ -24,10 +24,11 @@ public class EditPostController implements Controller {
 
         if(result.isPresent()){
             request.setAttribute("post",result.get());
+            return "/posts/post/editPost.jsp";
         }else {
-
+            request.setAttribute("message","존재하지 않는 게시물입니다");
+            request.setAttribute("path","/post/list.do");
+            return "/posts/pathHandler.jsp";
         }
-
-        return null;
     }
 }
