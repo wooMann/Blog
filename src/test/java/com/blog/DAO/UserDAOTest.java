@@ -52,9 +52,9 @@ public class UserDAOTest {
         user.setPassword(Sha256HashGenerator.hashGenerate("1234"));
         user.setName("DAOChange");
 
-        User result = userDAO.update(user);
+        Optional<User> result = userDAO.update(user);
         assertEquals(User.class,result.getClass());
-        assertEquals(result.getEmail(),user.getEmail());
+        assertEquals(result.get().getEmail(),user.getEmail());
     }
 
     @Test

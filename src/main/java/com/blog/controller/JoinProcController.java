@@ -56,7 +56,7 @@ public class JoinProcController implements Controller {
             if(joinResult == null){
                 request.setAttribute("path","/login.do");
                 request.setAttribute("message","회원가입 실패.");
-                return "/posts/pathHandler.jsp";
+                return "/blog/pathHandler.jsp";
             }
             request.setAttribute("path","/login.do");
             request.setAttribute("message","회원가입 확인 이메일이 전송되었습니다.");
@@ -67,6 +67,6 @@ public class JoinProcController implements Controller {
             request.setAttribute("path","javascript:history.back()");
             request.setAttribute("message","이미 존재하는 메일명.");
         }
-        return "/posts/pathHandler.jsp";
+        return "/blog/pathHandler.jsp";
     }
 }

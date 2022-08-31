@@ -22,13 +22,17 @@ public class EditPostController implements Controller {
         Integer postId = Integer.valueOf(request.getParameter("id"));
         Optional<Post> result =  postService.findById(postId);
 
+        String ip = request.getHeader("X-Forwarded-For");
+        if (ip == null) ip = request.getRemoteAddr();
+
         if(result.isPresent()){
             request.setAttribute("post",result.get());
-            return "/posts/post/editPost.jsp";
+            request.setAttribute("user_ip",ip);
+            return "/blog/post/postInputForm.jsp";
         }else {
             request.setAttribute("message","존재하지 않는 게시물입니다");
             request.setAttribute("path","/post/list.do");
-            return "/posts/pathHandler.jsp";
+            return "/blog/pathHandler.jsp";
         }
     }
 }

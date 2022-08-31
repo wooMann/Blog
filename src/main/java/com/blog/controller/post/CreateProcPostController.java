@@ -28,7 +28,7 @@ public class CreateProcPostController implements Controller {
             request.setAttribute("message","글 등록에 실패 했습니다.");
             request.setAttribute("path","javascript:history.back()");
         }
-        return "/posts/pathHandler.jsp";
+        return "/blog/pathHandler.jsp";
     }
 
     private PostDTO makeDTO(HttpServletRequest request){

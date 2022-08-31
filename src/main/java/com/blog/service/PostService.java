@@ -1,5 +1,6 @@
 package com.blog.service;
 
+import com.blog.DAO.CommentDAO;
 import com.blog.DAO.PostDAO;
 import com.blog.dto.post.PostDTO;
 import com.blog.entity.Post;
@@ -36,15 +37,23 @@ public class PostService {
         }
     }
 
-    public Post updatePost(PostDTO dto){
+    public Optional<Post> updatePost(PostDTO dto){
         Post post = makeEntity(dto);
-        post.setId(dto.getPostId());
+        post.setId(dto.getId());
         post.setUpdatedAt(new Date());
-        return postDAO.update(post);
+        try {
+            return postDAO.update(post);
+
+        }catch (DAOException e){
+            return Optional.empty();
+        }
     }
 
     public Optional<Post> findById(Integer id){
-        return postDAO.find(Post.class,id);
+        CommentDAO commentDAO = new CommentDAO();
+        Optional<Post> post = postDAO.find(Post.class,id);
+        post.get().setComments(commentDAO.findAllByPostId(id));
+        return post;
     }
 
     public List<Post> finaAllPost(){

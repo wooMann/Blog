@@ -17,6 +17,6 @@ public class JoinController implements Controller {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 
-        return "/posts/join.jsp";
+        return "/blog/join.jsp";
     }
 }

@@ -1,9 +1,6 @@
 package com.blog.controller;
 
-import com.blog.router.EmailTokensRouter;
-import com.blog.router.MainRouter;
-import com.blog.router.PostRouter;
-import com.blog.router.UserRouter;
+import com.blog.router.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,6 +20,7 @@ public class FrontController extends HttpServlet {
         new EmailTokensRouter(controllerMap);
         new PostRouter(controllerMap);
         new UserRouter(controllerMap);
+        new CommentRouter(controllerMap);
     }
 
     @Override

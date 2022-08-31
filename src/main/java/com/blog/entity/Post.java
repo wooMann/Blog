@@ -5,7 +5,9 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "posts")
@@ -40,4 +42,12 @@ public class Post {
 
     @Column(name = "deleted_at")
     private Date deletedAt;
+
+    @OneToMany(mappedBy = "post")
+    private List<Comment> comments = new ArrayList<>();
+    public void addComments(Comment comment){
+        comment.setPost(this);
+        this.comments.add(comment);
+    }
+
 }

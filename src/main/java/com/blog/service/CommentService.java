@@ -23,9 +23,12 @@ public class CommentService {
         post.setId(dto.getPostId());
         comment.setPost(post);
 
-        User user = new User();
-        user.setId(dto.getUserId());
-        comment.setUser(user);
+        if(dto.getUserId() != null){
+            User user = new User();
+            user.setId(dto.getUserId());
+            comment.setUser(user);
+        }
+
         comment.setUserIp(dto.getUserIp());
 
         return comment;
@@ -39,11 +42,15 @@ public class CommentService {
         comment.setUserIp(dto.getUserIp());
         comment.setId(dto.getCommentId());
 
-        return commentDAO.update(comment);
+        return commentDAO.update(comment).get();
     }
     public List<Comment> findAllByPostId(Integer postId){
         EntityManager entityManager = HibernateUtil.getEntityManagerFactory().createEntityManager();
         Query query = entityManager.createNamedQuery("Comment.findByPostId").setParameter(postId,postId);
         return query.getResultList();
+    }
+
+    public boolean deleteById(Integer id){
+        return commentDAO.delete(Comment.class,id);
     }
 }

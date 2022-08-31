@@ -3,12 +3,11 @@ package com.blog.service;
 import com.blog.DAO.UserDAO;
 import com.blog.dto.user.UserDTO;
 import com.blog.entity.User;
-import com.blog.exception.ServiceException;
 import com.blog.queryDAO.UserQueryDAO;
 import com.blog.util.HibernateUtil;
 import com.blog.util.Sha256HashGenerator;
 import lombok.RequiredArgsConstructor;
-import org.apache.log4j.Level;
+
 import javax.persistence.EntityManager;
 
 import java.util.List;
@@ -26,6 +25,9 @@ public class UserService {
         user.setPassword(Sha256HashGenerator.hashGenerate(dto.getPassword()));
 
         return user;
+    }
+    public Optional<User> findById(Integer id){
+        return userDAO.find(User.class,id);
     }
 
     public List<User> findAllUser(){
@@ -83,7 +85,7 @@ public class UserService {
         User user = makeEntity(dto);
         user.setId(dto.getId());
 
-        return userDAO.update(user);
+        return userDAO.update(user).get();
     }
 
     public boolean deleteUser(UserDTO dto){

@@ -22,6 +22,6 @@ public class PostListController implements Controller {
         PostService postService = new PostService();
         List<Post> postList =  postService.finaAllPost();
         request.setAttribute("postList",postList);
-        return "/posts/post/postsList.jsp";
+        return "/blog/post/postsList.jsp";
     }
 }

@@ -17,6 +17,6 @@ public class JoinConfirmProcController implements Controller {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 
-        return "/posts/joinConfirm.jsp";
+        return "/blog/joinConfirm.jsp";
     }
 }

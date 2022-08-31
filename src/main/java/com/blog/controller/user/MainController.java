@@ -15,6 +15,6 @@ public class MainController implements Controller {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        return "/posts/main.jsp";
+        return "/blog/main.jsp";
     }
 }

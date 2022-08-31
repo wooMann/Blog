@@ -33,7 +33,7 @@ public class JoinConfirmController implements Controller {
         }catch (Exception e){
             e.printStackTrace();
         }
-        return "/posts/pathHandler.jsp";
+        return "/blog/pathHandler.jsp";
     }
 
     private EmailTokensDTO makeDTO(HttpServletRequest request){

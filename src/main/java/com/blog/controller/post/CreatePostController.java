@@ -15,6 +15,6 @@ public class CreatePostController implements Controller {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        return "/posts/post/createPost.jsp";
+        return "/blog/post/postInputForm.jsp";
     }
 }

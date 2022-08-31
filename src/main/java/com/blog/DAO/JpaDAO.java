@@ -31,7 +31,7 @@ public class JpaDAO<E> {
         }
     }
 
-    public E update(E entity) {
+    public Optional<E> update(E entity) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction entityTransaction = entityManager.getTransaction();
 
@@ -42,10 +42,11 @@ public class JpaDAO<E> {
         } catch (Exception e) {
             e.printStackTrace();
             entityTransaction.rollback();
+            throw new DAOException("Create 에러 발생" + entity.toString() , Level.ERROR);
         } finally {
             entityManager.close();
         }
-        return entity;
+        return Optional.ofNullable(entity);
     }
 
     public Optional<E> find(Class<E> type, Object id) {

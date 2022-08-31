@@ -17,6 +17,6 @@ public class LoginController implements Controller {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 
-        return "/posts/login.jsp";
+        return "/blog/login.jsp";
     }
 }

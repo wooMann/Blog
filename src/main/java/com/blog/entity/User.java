@@ -5,6 +5,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "user")
@@ -34,6 +35,9 @@ public class User {
 
     @OneToOne(mappedBy = "user")
     private EmailTokens emailTokens;
+
+    @Column(name = "created_at")
+    private Date createdAt;
 
 
 
