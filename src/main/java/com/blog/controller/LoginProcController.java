@@ -3,6 +3,7 @@ package com.blog.controller;
 
 import com.blog.dto.user.UserDTO;
 import com.blog.entity.User;
+import com.blog.manager.SessionManager;
 import com.blog.service.UserService;
 import com.blog.util.Sha256HashGenerator;
 
@@ -52,9 +53,9 @@ public class LoginProcController implements Controller {
                     request.setAttribute("message", "회원가입 이메일 확인을 해주세요");
                 }else {
                     request.setAttribute("path", "/main.do");
-                    session.setAttribute("SESSION_USER_ID", loginResult.getId());
-                    session.setAttribute("SESSION_USER_EMAIL", loginResult.getEmail());
-                    session.setAttribute("SESSION_USER_NAME", loginResult.getName());
+                    session.setAttribute(SessionManager.SESSION_ID, loginResult.getId());
+                    session.setAttribute(SessionManager.SESSION_EMAIL, loginResult.getEmail());
+                    session.setAttribute(SessionManager.SESSION_NAME, loginResult.getName());
                 }
             }
         } catch (Exception e) {

@@ -2,6 +2,7 @@ package com.blog.controller.user;
 
 import com.blog.controller.Controller;
 import com.blog.entity.User;
+import com.blog.manager.SessionManager;
 import com.blog.service.UserService;
 
 import javax.mail.Session;
@@ -22,7 +23,7 @@ public class UserEditController implements Controller {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         UserService userService = new UserService();
-        Optional<User> result = userService.findById((Integer) session.getAttribute("SESSION_USER_ID"));
+        Optional<User> result = userService.findById((Integer) session.getAttribute(SessionManager.SESSION_ID));
         if(result.isPresent()){
             request.setAttribute("user",result.get());
             return "/blog/user/userInputForm.jsp";

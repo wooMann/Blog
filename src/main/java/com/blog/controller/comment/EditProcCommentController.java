@@ -2,6 +2,7 @@ package com.blog.controller.comment;
 
 import com.blog.controller.Controller;
 import com.blog.dto.comment.CommentDTO;
+import com.blog.manager.SessionManager;
 import com.blog.service.CommentService;
 
 import javax.servlet.ServletException;
@@ -31,7 +32,7 @@ public class EditProcCommentController implements Controller {
         HttpSession session = request.getSession();
         CommentDTO dto = new CommentDTO();
         dto.setPostId(Integer.valueOf(request.getParameter("post_id")));
-        dto.setUserId((Integer) session.getAttribute("SESSION_USER_ID"));
+        dto.setUserId((Integer) session.getAttribute(SessionManager.SESSION_ID));
         dto.setUserIp(request.getParameter("user_ip"));
         dto.setBody(request.getParameter("comment_body"));
         dto.setCommentId(Integer.valueOf(request.getParameter("comment_id")));

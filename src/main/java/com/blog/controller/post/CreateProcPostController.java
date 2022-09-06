@@ -3,6 +3,7 @@ package com.blog.controller.post;
 import com.blog.controller.Controller;
 import com.blog.dto.post.PostDTO;
 import com.blog.entity.Post;
+import com.blog.manager.SessionManager;
 import com.blog.service.PostService;
 
 import javax.servlet.ServletException;
@@ -35,7 +36,7 @@ public class CreateProcPostController implements Controller {
         HttpSession session = request.getSession();
         PostDTO postDTO = new PostDTO();
 
-        postDTO.setUserId((Integer) session.getAttribute("SESSION_USER_ID"));
+        postDTO.setUserId((Integer) session.getAttribute(SessionManager.SESSION_ID));
         postDTO.setTitle(request.getParameter("title"));
         postDTO.setBody(request.getParameter("body"));
 
