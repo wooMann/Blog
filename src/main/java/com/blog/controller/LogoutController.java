@@ -9,7 +9,6 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 public class LogoutController implements Controller {
-
     @Override
     public String httpMethod() {
         return "GET";

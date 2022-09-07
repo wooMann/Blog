@@ -3,6 +3,7 @@ package com.blog.controller.post;
 import com.blog.controller.Controller;
 import com.blog.dto.post.PostDTO;
 import com.blog.entity.Post;
+import com.blog.manager.ResponseManager;
 import com.blog.manager.SessionManager;
 import com.blog.service.PostService;
 
@@ -25,10 +26,9 @@ public class EditProcPostController implements Controller {
         PostService postService = new PostService();
         Optional<Post> result = postService.updatePost(makeDTO(request));
         if (result.isPresent()){
-            request.setAttribute("path","/post/edit.do?id="+result.get().getId());
+            ResponseManager.responsePath(request,"/post/edit.do?id="+result.get().getId());
         }else {
-            request.setAttribute("message","글 수정에 실패 했습니다.");
-            request.setAttribute("path","javascript:history.back()");
+            ResponseManager.responseFailWithMessage(request,"글 수정에 실패 했습니다.");
         }
         return "/blog/pathHandler.jsp";
     }

@@ -3,6 +3,7 @@ package com.blog.controller.post;
 import com.blog.controller.Controller;
 import com.blog.dto.post.PostDTO;
 import com.blog.entity.Post;
+import com.blog.manager.ResponseManager;
 import com.blog.manager.SessionManager;
 import com.blog.service.PostService;
 
@@ -24,10 +25,9 @@ public class CreateProcPostController implements Controller {
         PostService postService = new PostService();
         boolean result =  postService.createPost(makeDTO(request));
         if (result){
-            request.setAttribute("path","/post/list.do");
+            ResponseManager.responsePath(request,"/post/list.do");
         }else {
-            request.setAttribute("message","글 등록에 실패 했습니다.");
-            request.setAttribute("path","javascript:history.back()");
+            ResponseManager.responseFailWithMessage(request,"글 등록에 실패했습니다");
         }
         return "/blog/pathHandler.jsp";
     }

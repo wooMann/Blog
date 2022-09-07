@@ -3,6 +3,7 @@ package com.blog.controller.emailTokens;
 import com.blog.controller.Controller;
 import com.blog.dto.EmailTokensDTO;
 import com.blog.exception.ServiceException;
+import com.blog.manager.ResponseManager;
 import com.blog.service.EmailTokenService;
 
 import javax.servlet.ServletException;
@@ -25,11 +26,9 @@ public class JoinConfirmController implements Controller {
         EmailTokenService emailTokenService = new EmailTokenService();
         try {
             emailTokenService.updateEmailToken(makeDTO(request));
-            request.setAttribute("path","/login.do");
-            request.setAttribute("message","회원가입이 완료되었습니다.");
+            ResponseManager.responseFailWithMessageAndPath(request,"회원가입이 완료되었습니다.","/login.do");
         }catch (ServiceException e){
-            request.setAttribute("path","javascript:history.back()");
-            request.setAttribute("message","회원가입 완료처리중 에러.");
+            ResponseManager.responseFailWithMessage(request,"회원가입 완료처리중 에러.");
         }catch (Exception e){
             e.printStackTrace();
         }

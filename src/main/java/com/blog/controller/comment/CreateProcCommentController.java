@@ -3,6 +3,7 @@ package com.blog.controller.comment;
 import com.blog.controller.Controller;
 import com.blog.dto.comment.CommentDTO;
 import com.blog.entity.Comment;
+import com.blog.manager.ResponseManager;
 import com.blog.service.CommentService;
 
 import javax.servlet.ServletException;
@@ -22,10 +23,9 @@ public class CreateProcCommentController implements Controller {
         CommentService commentService = new CommentService();
         Optional<Comment> result = commentService.createComment(makeDTO(request));
         if(result.isPresent()){
-            request.setAttribute("path","/post/edit.do?id="+result.get().getPost().getId());
+            ResponseManager.responsePath(request,"/post/edit.do?id="+result.get().getPost().getId());
         }else {
-            request.setAttribute("message","댓글 등록 실패");
-            request.setAttribute("path","/post/edit.do?id="+result.get().getPost().getId());
+            ResponseManager.responseFailWithMessageAndPath(request,"댓글 등록 실패","/post/edit.do?id="+result.get().getPost().getId());
         }
         return "/blog/pathHandler.jsp";
     }
@@ -34,12 +34,8 @@ public class CreateProcCommentController implements Controller {
         CommentDTO commentDTO = new CommentDTO();
         if(!request.getParameter("user_id").isEmpty()) commentDTO.setUserId(Integer.valueOf(request.getParameter("user_id")));
         else commentDTO.setUserIp(request.getParameter("user_ip"));
-
-
         commentDTO.setPostId(Integer.valueOf(request.getParameter("post_id")));
-
         commentDTO.setBody(request.getParameter("body"));
-
         return commentDTO;
     }
 }

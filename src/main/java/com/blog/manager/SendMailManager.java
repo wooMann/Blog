@@ -45,6 +45,17 @@ public class SendMailManager {
         return mailServiceType;
     }
 
+    public MailServiceType findPasswordMail(String userTokenId){
+        String mailBody = "비밀번호 확인을 해주세요 - " + "<a href = 'http://localhost:8081/joinConfirm.do?token="+userTokenId+"'> 확인 </a>";
+        String mailTitle = "비밀번호 찾기 메일입니다";
+
+        MailServiceType mailServiceType = new MailServiceType();
+        mailServiceType.setBody(mailBody);
+        mailServiceType.setTitle(mailTitle);
+
+        return mailServiceType;
+    }
+
 
 
 

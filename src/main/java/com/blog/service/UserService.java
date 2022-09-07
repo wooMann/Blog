@@ -81,11 +81,11 @@ public class UserService {
         return userQueryDAO.findUser(user);
     }
 
-    public User updateUser(UserDTO dto){
+    public Optional<User> updateUser(UserDTO dto){
         User user = makeEntity(dto);
         user.setId(dto.getId());
 
-        return userDAO.update(user).get();
+        return userDAO.update(user);
     }
 
     public boolean deleteUser(UserDTO dto){

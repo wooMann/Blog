@@ -3,6 +3,7 @@ package com.blog.controller;
 
 import com.blog.dto.user.UserDTO;
 import com.blog.entity.User;
+import com.blog.manager.ResponseManager;
 import com.blog.manager.SessionManager;
 import com.blog.service.UserService;
 import com.blog.util.Sha256HashGenerator;
@@ -41,18 +42,15 @@ public class LoginProcController implements Controller {
             User loginResult = userService.login(userDTO);
 
             if (!findResult) {
-                request.setAttribute("path", "javascript:history.back()");
-                request.setAttribute("message", "존재하지 않는 회원입니다.");
+                ResponseManager.responseFailWithMessage(request,"존재하지 않는 메일입니다.");
             } else if (loginResult == null) {
-                request.setAttribute("path", "javascript:history.back()");
-                request.setAttribute("message", "비밀번호를 확인해 주세요");
+                ResponseManager.responseFailWithMessage(request,"비밀번호를 확인해 주세요.");
             } else {
                 boolean tokenResult = userService.checkEmailToken(loginResult.getId());
                 if (!tokenResult) {
-                    request.setAttribute("path", "javascript:history.back()");
-                    request.setAttribute("message", "회원가입 이메일 확인을 해주세요");
+                    ResponseManager.responseFailWithMessage(request,"회원가입 이메일 확인을 해주세요.");
                 }else {
-                    request.setAttribute("path", "/main.do");
+                    ResponseManager.responsePath(request,"/main.do");
                     session.setAttribute(SessionManager.SESSION_ID, loginResult.getId());
                     session.setAttribute(SessionManager.SESSION_EMAIL, loginResult.getEmail());
                     session.setAttribute(SessionManager.SESSION_NAME, loginResult.getName());

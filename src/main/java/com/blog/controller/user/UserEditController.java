@@ -2,6 +2,7 @@ package com.blog.controller.user;
 
 import com.blog.controller.Controller;
 import com.blog.entity.User;
+import com.blog.manager.ResponseManager;
 import com.blog.manager.SessionManager;
 import com.blog.service.UserService;
 
@@ -28,8 +29,7 @@ public class UserEditController implements Controller {
             request.setAttribute("user",result.get());
             return "/blog/user/userInputForm.jsp";
         }else {
-            request.setAttribute("message","찾을수 없는 사용자입니다");
-            request.setAttribute("path","/main.do");
+            ResponseManager.responseFailWithMessageAndPath(request,"찾을 수 없는 사용자 입니다.","/main.do");
             return "/blog/pathHandler.jsp";
         }
     }

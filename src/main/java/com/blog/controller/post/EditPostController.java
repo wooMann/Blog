@@ -2,6 +2,7 @@ package com.blog.controller.post;
 
 import com.blog.controller.Controller;
 import com.blog.entity.Post;
+import com.blog.manager.ResponseManager;
 import com.blog.service.PostService;
 
 import javax.servlet.ServletException;
@@ -30,8 +31,7 @@ public class EditPostController implements Controller {
             request.setAttribute("user_ip",ip);
             return "/blog/post/postInputForm.jsp";
         }else {
-            request.setAttribute("message","존재하지 않는 게시물입니다");
-            request.setAttribute("path","/post/list.do");
+            ResponseManager.responseFailWithMessageAndPath(request,"존재하지 않는 게시물입니다","/post/list.do");
             return "/blog/pathHandler.jsp";
         }
     }
