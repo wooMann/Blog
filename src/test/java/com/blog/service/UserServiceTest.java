@@ -62,11 +62,11 @@ public class UserServiceTest {
     @Test
     public void loginSuccess() {
         UserDTO dto = new UserDTO();
-        dto.setEmail("12");
-        dto.setPassword("12");
-        User result = userService.login(dto);
+        dto.setEmail("123");
+        dto.setPassword("123");
+        Optional<User> result = userService.login(dto);
         assertEquals(User.class, result.getClass());
-        assertEquals(dto.getEmail(),result.getEmail());
+        assertEquals(dto.getEmail(),result.get().getEmail());
     }
 
     @Test
@@ -74,8 +74,8 @@ public class UserServiceTest {
         UserDTO dto = new UserDTO();
         dto.setEmail("woo@naver.com");
         dto.setPassword("12312312fgv1v");
-        User result = userService.login(dto);
-        assertNull(result);
+        Optional<User> result = userService.login(dto);
+        assertFalse(result.isPresent());
     }
 
 

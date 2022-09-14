@@ -20,7 +20,7 @@ public class PostServiceTest {
 
         dto.setUserId(24);
 
-        boolean result =  postService.createPost(dto);
+        boolean result =  postService.createPost(dto).isPresent();
         assertTrue(result);
     }
 
@@ -33,7 +33,7 @@ public class PostServiceTest {
 
         dto.setUserId(24);
 
-        boolean result =  postService.createPost(dto);
+        boolean result =  postService.createPost(dto).isPresent();
         assertTrue(result);
     }
 

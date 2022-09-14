@@ -3,12 +3,9 @@ package com.blog.service;
 import com.blog.DAO.UserDAO;
 import com.blog.dto.user.UserDTO;
 import com.blog.entity.User;
-import com.blog.queryDAO.UserQueryDAO;
-import com.blog.util.HibernateUtil;
-import com.blog.util.Sha256HashGenerator;
 import lombok.RequiredArgsConstructor;
 
-import javax.persistence.EntityManager;
+
 
 import java.util.List;
 import java.util.Optional;
@@ -17,15 +14,7 @@ import java.util.Optional;
 public class UserService {
 
     private UserDAO userDAO = new UserDAO();
-    private UserQueryDAO userQueryDAO = new UserQueryDAO();
 
-    private User makeEntity(UserDTO dto) {
-        User user = new User();
-        user.setEmail(dto.getEmail());
-        user.setPassword(Sha256HashGenerator.hashGenerate(dto.getPassword()));
-
-        return user;
-    }
     public Optional<User> findById(Integer id){
         return userDAO.find(User.class,id);
     }
@@ -35,22 +24,14 @@ public class UserService {
     }
 
     public Optional<User> join(UserDTO dto) {
-        User user = makeEntity(dto);
+        User user = dto.makeUser();
         user.setName(dto.getName());
         return userDAO.create(user);
     }
 
     public boolean findByEmail(UserDTO dto){
-        EntityManager entityManager = HibernateUtil.getEntityManagerFactory().createEntityManager();
-        List<User> list = entityManager.createNamedQuery("User.findByEmail")
-                .setParameter("email", dto.getEmail()).getResultList();
-        if (list.size() > 0){
-            entityManager.close();
-            return true;
-        }else {
-            entityManager.close();
-            return false;
-        }
+        Optional<User> result =  userDAO.findByEmail(dto.getEmail());
+        return result.isPresent() ? true : false;
     }
 
     public boolean checkEmailToken(Integer userId){
@@ -59,37 +40,23 @@ public class UserService {
        return true;
     }
 
-    public User login(UserDTO dto)  {
-        EntityManager entityManager = HibernateUtil.getEntityManagerFactory().createEntityManager();
-
-        List<User> list = entityManager.createNamedQuery("User.loginCheck").
-                setParameter("email", dto.getEmail()).
-                setParameter("password", dto.getPassword()).
-                getResultList();
-        entityManager.close();
-        if(list.size() > 0){
-            entityManager.close();
-            return list.get(0);
-        }else {
-            entityManager.close();
-            return null;
-        }
+    public Optional<User> login(UserDTO dto)  {
+       return userDAO.login(dto);
     }
 
-    public User findUserByEmail() {
-        User user = new User();
-        return userQueryDAO.findUser(user);
+    public User findUserByEmail(UserDTO dto) {
+
+        return userDAO.findByEmail(dto.getEmail()).get();
     }
 
     public Optional<User> updateUser(UserDTO dto){
-        User user = makeEntity(dto);
+        User user = dto.makeUser();
         user.setId(dto.getId());
-
         return userDAO.update(user);
     }
 
     public boolean deleteUser(UserDTO dto){
-        User user = makeEntity(dto);
+        User user = dto.makeUser();
         user.setId(dto.getId());
 
         return userDAO.delete(User.class,dto.getId());

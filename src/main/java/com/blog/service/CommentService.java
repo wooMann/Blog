@@ -15,39 +15,20 @@ import java.util.Optional;
 public class CommentService {
     CommentDAO commentDAO = new CommentDAO();
 
-    private Comment makeEntity(CommentDTO dto){
-        Comment comment = new Comment();
-        comment.setBody(dto.getBody());
 
-        Post post = new Post();
-        post.setId(dto.getPostId());
-        comment.setPost(post);
-
-        if(dto.getUserId() != null){
-            User user = new User();
-            user.setId(dto.getUserId());
-            comment.setUser(user);
-        }
-
-        comment.setUserIp(dto.getUserIp());
-
-        return comment;
-    }
 
     public Optional<Comment> createComment(CommentDTO dto){
-        return commentDAO.create(makeEntity(dto));
+        return commentDAO.create(dto.makeComment());
     }
     public Comment updateComment(CommentDTO dto){
-        Comment comment = makeEntity(dto);
+        Comment comment = dto.makeComment();
         comment.setUserIp(dto.getUserIp());
         comment.setId(dto.getCommentId());
 
         return commentDAO.update(comment).get();
     }
     public List<Comment> findAllByPostId(Integer postId){
-        EntityManager entityManager = HibernateUtil.getEntityManagerFactory().createEntityManager();
-        Query query = entityManager.createNamedQuery("Comment.findByPostId").setParameter(postId,postId);
-        return query.getResultList();
+        return commentDAO.findAllByPostId(postId);
     }
 
     public boolean deleteById(Integer id){

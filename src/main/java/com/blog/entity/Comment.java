@@ -1,8 +1,6 @@
 package com.blog.entity;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -10,6 +8,9 @@ import javax.persistence.*;
 @Table(name = "comments")
 @Getter
 @Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @ToString
 @NamedQueries({
         @NamedQuery(name = "Comment.findByPostId",query = "select c from Comment c where c.post.id = :postId")

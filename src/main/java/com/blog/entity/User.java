@@ -1,8 +1,6 @@
 package com.blog.entity;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -11,6 +9,9 @@ import java.util.Date;
 @Table(name = "user")
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @ToString
 @NamedQueries({
         @NamedQuery(name = "User.findByEmail",query = "SELECT u FROM User u where u.email = :email"),

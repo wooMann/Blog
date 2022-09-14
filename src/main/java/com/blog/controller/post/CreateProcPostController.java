@@ -23,8 +23,8 @@ public class CreateProcPostController implements Controller {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         PostService postService = new PostService();
-        boolean result =  postService.createPost(makeDTO(request));
-        if (result){
+        Optional<Post> result =  postService.createPost(makeDTO(request));
+        if (result.isPresent()){
             ResponseManager.responsePath(request,"/post/list.do");
         }else {
             ResponseManager.responseFailWithMessage(request,"글 등록에 실패했습니다");

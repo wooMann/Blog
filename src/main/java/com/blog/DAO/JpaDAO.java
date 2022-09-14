@@ -42,7 +42,7 @@ public class JpaDAO<E> {
         } catch (Exception e) {
             e.printStackTrace();
             entityTransaction.rollback();
-            throw new DAOException("Create 에러 발생" + entity.toString() , Level.ERROR);
+            throw new DAOException("Update 에러 발생" + entity.toString() , Level.ERROR);
         } finally {
             entityManager.close();
         }
@@ -62,7 +62,6 @@ public class JpaDAO<E> {
 
         try {
             Object references = entityManager.getReference(type, id);
-            //Object entity = entityManager.find(type,id);
             entityTransaction.begin();
             entityManager.remove(references);
             entityTransaction.commit();

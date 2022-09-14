@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Optional;
 
 
 public class LoginProcController implements Controller {
@@ -35,25 +36,24 @@ public class LoginProcController implements Controller {
         UserService userService = new UserService();
         HttpSession session = request.getSession();
         UserDTO userDTO = makeDTO(request);
-        User result = new User();
 
         try {
             boolean findResult = userService.findByEmail(userDTO);
-            User loginResult = userService.login(userDTO);
+            Optional<User> loginResult = userService.login(userDTO);
 
             if (!findResult) {
                 ResponseManager.responseFailWithMessage(request,"존재하지 않는 메일입니다.");
-            } else if (loginResult == null) {
+            } else if (!loginResult.isPresent()) {
                 ResponseManager.responseFailWithMessage(request,"비밀번호를 확인해 주세요.");
             } else {
-                boolean tokenResult = userService.checkEmailToken(loginResult.getId());
+                boolean tokenResult = userService.checkEmailToken(loginResult.get().getId());
                 if (!tokenResult) {
                     ResponseManager.responseFailWithMessage(request,"회원가입 이메일 확인을 해주세요.");
                 }else {
                     ResponseManager.responsePath(request,"/main.do");
-                    session.setAttribute(SessionManager.SESSION_ID, loginResult.getId());
-                    session.setAttribute(SessionManager.SESSION_EMAIL, loginResult.getEmail());
-                    session.setAttribute(SessionManager.SESSION_NAME, loginResult.getName());
+                    session.setAttribute(SessionManager.SESSION_ID, loginResult.get().getId());
+                    session.setAttribute(SessionManager.SESSION_EMAIL, loginResult.get().getEmail());
+                    session.setAttribute(SessionManager.SESSION_NAME, loginResult.get().getName());
                 }
             }
         } catch (Exception e) {

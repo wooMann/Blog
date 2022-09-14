@@ -1,8 +1,6 @@
 package com.blog.entity;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -13,6 +11,9 @@ import java.util.List;
 @Table(name = "posts")
 @Setter
 @Getter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @ToString
 @NamedQueries({
         @NamedQuery(name = "Post.findAll",query = "select p from Post p")
@@ -49,5 +50,10 @@ public class Post {
         comment.setPost(this);
         this.comments.add(comment);
     }
+
+
+
+
+
 
 }

@@ -5,6 +5,7 @@ import com.blog.dto.EmailTokensDTO;
 import com.blog.dto.user.UserDTO;
 import com.blog.entity.EmailTokens;
 import com.blog.entity.User;
+import com.blog.manager.DTO.SendMailDTO;
 import com.blog.service.EmailTokenService;
 import com.blog.service.MailService;
 import com.blog.service.UserService;
@@ -47,12 +48,13 @@ public class JoinProcController implements Controller {
         UserService userService = new UserService();
         MailService mailService = new MailService();
         EmailTokenService emailTokenService = new EmailTokenService();
+        UserDTO dto = makeDTO(request);
         UUID uuid = UUID.randomUUID();
         String code[] = String.valueOf(uuid).split("-");
 
-        User findResult = userService.findUserByEmail();
+        User findResult = userService.findUserByEmail(dto);
         if (findResult == null){
-            Optional<User> joinResult = userService.join(makeDTO(request));
+            Optional<User> joinResult = userService.join(dto);
             if(joinResult == null){
                 request.setAttribute("path","/login.do");
                 request.setAttribute("message","회원가입 실패.");
@@ -61,12 +63,20 @@ public class JoinProcController implements Controller {
             request.setAttribute("path","/login.do");
             request.setAttribute("message","회원가입 확인 이메일이 전송되었습니다.");
             emailTokenService.createEmailToken(makeEmailTokensDTO(joinResult.get().getId(), code[0]));
-            mailService.sendMail(joinResult.get(),code[0]);
+            mailService.sendMail(makeSendMailDTO(joinResult.get().getEmail(),code[0]));
 
         }else {
             request.setAttribute("path","javascript:history.back()");
             request.setAttribute("message","이미 존재하는 메일명.");
         }
         return "/blog/pathHandler.jsp";
+    }
+
+    private SendMailDTO makeSendMailDTO(String email , String token){
+        return SendMailDTO.builder()
+                .email(email)
+                .token(token)
+                .mailType("singUp")
+                .build();
     }
 }
