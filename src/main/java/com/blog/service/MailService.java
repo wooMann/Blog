@@ -1,11 +1,8 @@
 package com.blog.service;
 
-import com.blog.entity.User;
-import com.blog.manager.DTO.MailServiceMessage;
-import com.blog.manager.DTO.SendMailDTO;
-import com.blog.manager.DTO.mail.SendMail;
-import com.blog.manager.SendMailManager;
-import com.blog.manager.SessionManager;
+import com.blog.library.mail.SendMailDTO;
+import com.blog.library.mail.SendMail;
+import com.blog.library.mail.SendMailManager;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;

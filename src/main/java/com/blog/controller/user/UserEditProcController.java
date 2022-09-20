@@ -1,8 +1,8 @@
 package com.blog.controller.user;
 
 import com.blog.controller.Controller;
-import com.blog.dto.user.UserDTO;
-import com.blog.entity.User;
+import com.blog.data.dto.user.UserDTO;
+import com.blog.data.entity.User;
 import com.blog.manager.ResponseManager;
 import com.blog.service.UserService;
 

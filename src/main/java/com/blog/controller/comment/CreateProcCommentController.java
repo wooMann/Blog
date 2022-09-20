@@ -1,8 +1,8 @@
 package com.blog.controller.comment;
 
 import com.blog.controller.Controller;
-import com.blog.dto.comment.CommentDTO;
-import com.blog.entity.Comment;
+import com.blog.data.dto.comment.CommentDTO;
+import com.blog.data.entity.Comment;
 import com.blog.manager.ResponseManager;
 import com.blog.service.CommentService;
 
@@ -37,5 +37,15 @@ public class CreateProcCommentController implements Controller {
         commentDTO.setPostId(Integer.valueOf(request.getParameter("post_id")));
         commentDTO.setBody(request.getParameter("body"));
         return commentDTO;
+    }
+
+    @Override
+    public String doGet(HttpServletRequest request, HttpServletResponse response) {
+        return null;
+    }
+
+    @Override
+    public String doPost(HttpServletRequest request, HttpServletResponse response) {
+        return null;
     }
 }

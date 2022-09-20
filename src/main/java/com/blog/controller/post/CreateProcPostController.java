@@ -1,18 +1,15 @@
 package com.blog.controller.post;
 
 import com.blog.controller.Controller;
-import com.blog.dto.post.PostDTO;
-import com.blog.entity.Post;
-import com.blog.manager.ResponseManager;
+import com.blog.data.dto.post.PostDTO;
+import com.blog.data.entity.Post;
 import com.blog.manager.SessionManager;
-import com.blog.service.PostService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.Optional;
 
 public class CreateProcPostController implements Controller {
     @Override
@@ -22,14 +19,7 @@ public class CreateProcPostController implements Controller {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        PostService postService = new PostService();
-        Optional<Post> result =  postService.createPost(makeDTO(request));
-        if (result.isPresent()){
-            ResponseManager.responsePath(request,"/post/list.do");
-        }else {
-            ResponseManager.responseFailWithMessage(request,"글 등록에 실패했습니다");
-        }
-        return "/blog/pathHandler.jsp";
+
     }
 
     private PostDTO makeDTO(HttpServletRequest request){

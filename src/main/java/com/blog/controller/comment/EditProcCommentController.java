@@ -1,7 +1,7 @@
 package com.blog.controller.comment;
 
 import com.blog.controller.Controller;
-import com.blog.dto.comment.CommentDTO;
+import com.blog.data.dto.comment.CommentDTO;
 import com.blog.manager.SessionManager;
 import com.blog.service.CommentService;
 

@@ -1,10 +1,10 @@
 package com.blog.service;
 
-import com.blog.dto.DeleteDTO;
-import com.blog.dto.EditDTO;
-import com.blog.dto.LoginDTO;
-import com.blog.dto.LogoutDTO;
-import com.blog.entity.User;
+import com.blog.data.dto.DeleteDTO;
+import com.blog.data.dto.EditDTO;
+import com.blog.data.dto.LoginDTO;
+import com.blog.data.dto.LogoutDTO;
+import com.blog.data.entity.User;
 import com.blog.log.BizLog;
 
 public class LogService {

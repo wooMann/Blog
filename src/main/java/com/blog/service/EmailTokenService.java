@@ -1,9 +1,9 @@
 package com.blog.service;
 
-import com.blog.DAO.EmailTokenDAO;
-import com.blog.dto.EmailTokensDTO;
-import com.blog.entity.EmailTokens;
-import com.blog.entity.User;
+import com.blog.data.DAO.EmailTokenDAO;
+import com.blog.data.dto.EmailTokensDTO;
+import com.blog.data.entity.EmailTokens;
+import com.blog.data.entity.User;
 import com.blog.exception.DAOException;
 import com.blog.exception.ServiceException;
 import org.apache.log4j.Level;

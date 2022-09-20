@@ -1,9 +1,8 @@
 package com.blog.controller.post;
 
 import com.blog.controller.Controller;
-import com.blog.entity.Post;
+import com.blog.data.entity.Post;
 import com.blog.service.PostService;
-import javafx.geometry.Pos;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

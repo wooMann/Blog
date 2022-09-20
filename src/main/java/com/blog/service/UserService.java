@@ -1,8 +1,8 @@
 package com.blog.service;
 
-import com.blog.DAO.UserDAO;
-import com.blog.dto.user.UserDTO;
-import com.blog.entity.User;
+import com.blog.data.DAO.UserDAO;
+import com.blog.data.dto.user.UserDTO;
+import com.blog.data.entity.User;
 import lombok.RequiredArgsConstructor;
 
 

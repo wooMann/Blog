@@ -1,8 +1,8 @@
 package com.blog.service;
 
-import com.blog.dto.post.PostDTO;
-import com.blog.entity.Post;
-import com.blog.entity.User;
+import com.blog.data.dto.post.PostDTO;
+import com.blog.data.entity.Post;
+import com.blog.data.entity.User;
 import org.junit.Test;
 
 import java.util.List;

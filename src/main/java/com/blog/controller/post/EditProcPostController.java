@@ -1,8 +1,8 @@
 package com.blog.controller.post;
 
 import com.blog.controller.Controller;
-import com.blog.dto.post.PostDTO;
-import com.blog.entity.Post;
+import com.blog.data.dto.post.PostDTO;
+import com.blog.data.entity.Post;
 import com.blog.manager.ResponseManager;
 import com.blog.manager.SessionManager;
 import com.blog.service.PostService;
@@ -11,7 +11,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.swing.text.html.Option;
 import java.io.IOException;
 import java.util.Optional;
 

@@ -1,7 +1,7 @@
 package com.blog.controller.post;
 
 import com.blog.controller.Controller;
-import com.blog.entity.Post;
+import com.blog.data.entity.Post;
 import com.blog.manager.ResponseManager;
 import com.blog.service.PostService;
 

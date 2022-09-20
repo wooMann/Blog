@@ -6,6 +6,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public interface Controller {
-    String httpMethod();
-    String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
+    String doGet(HttpServletRequest request, HttpServletResponse response);
+    String doPost(HttpServletRequest request, HttpServletResponse response);
 }

@@ -16,11 +16,11 @@ public class FrontController extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        new MainRouter(controllerMap);
-        new EmailTokensRouter(controllerMap);
-        new PostRouter(controllerMap);
-        new UserRouter(controllerMap);
-        new CommentRouter(controllerMap);
+        new MainRoute(controllerMap);
+        new EmailTokensRoute(controllerMap);
+        new PostRoute(controllerMap);
+        new UserRoute(controllerMap);
+        new CommentRoute(controllerMap);
     }
 
     @Override

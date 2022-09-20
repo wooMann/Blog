@@ -1,12 +1,11 @@
 package com.blog.controller.user;
 
 import com.blog.controller.Controller;
-import com.blog.entity.User;
+import com.blog.data.entity.User;
 import com.blog.manager.ResponseManager;
 import com.blog.manager.SessionManager;
 import com.blog.service.UserService;
 
-import javax.mail.Session;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

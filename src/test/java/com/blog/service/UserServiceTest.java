@@ -1,7 +1,7 @@
 package com.blog.service;
 
-import com.blog.dto.user.UserDTO;
-import com.blog.entity.User;
+import com.blog.data.dto.user.UserDTO;
+import com.blog.data.entity.User;
 import com.blog.exception.ServiceException;
 import com.blog.util.Sha256HashGenerator;
 import org.junit.Test;

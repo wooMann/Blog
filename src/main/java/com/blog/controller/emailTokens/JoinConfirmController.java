@@ -1,9 +1,8 @@
 package com.blog.controller.emailTokens;
 
 import com.blog.controller.Controller;
-import com.blog.dto.EmailTokensDTO;
+import com.blog.data.dto.EmailTokensDTO;
 import com.blog.exception.DAOException;
-import com.blog.exception.ServiceException;
 import com.blog.manager.ResponseManager;
 import com.blog.service.EmailTokenService;
 

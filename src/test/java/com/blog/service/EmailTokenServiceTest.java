@@ -1,14 +1,10 @@
 package com.blog.service;
 
-import com.blog.dto.EmailTokensDTO;
+import com.blog.data.dto.EmailTokensDTO;
 import com.blog.exception.ServiceException;
 import org.junit.Test;
 
-import javax.xml.ws.Service;
-
 import java.util.Date;
-
-import static org.junit.Assert.*;
 
 public class EmailTokenServiceTest {
 

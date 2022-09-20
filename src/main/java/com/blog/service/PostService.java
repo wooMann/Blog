@@ -1,9 +1,9 @@
 package com.blog.service;
 
-import com.blog.DAO.CommentDAO;
-import com.blog.DAO.PostDAO;
-import com.blog.dto.post.PostDTO;
-import com.blog.entity.Post;
+import com.blog.data.DAO.CommentDAO;
+import com.blog.data.DAO.PostDAO;
+import com.blog.data.dto.post.PostDTO;
+import com.blog.data.entity.Post;
 
 import java.util.Date;
 import java.util.List;
