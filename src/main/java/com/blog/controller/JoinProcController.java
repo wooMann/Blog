@@ -6,6 +6,8 @@ import com.blog.dto.user.UserDTO;
 import com.blog.entity.EmailTokens;
 import com.blog.entity.User;
 import com.blog.manager.DTO.SendMailDTO;
+import com.blog.manager.DTO.mail.SendMail;
+import com.blog.manager.DTO.mail.SignUpMail;
 import com.blog.service.EmailTokenService;
 import com.blog.service.MailService;
 import com.blog.service.UserService;
@@ -47,6 +49,7 @@ public class JoinProcController implements Controller {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         UserService userService = new UserService();
         MailService mailService = new MailService();
+
         EmailTokenService emailTokenService = new EmailTokenService();
         UserDTO dto = makeDTO(request);
         UUID uuid = UUID.randomUUID();
@@ -63,7 +66,7 @@ public class JoinProcController implements Controller {
             request.setAttribute("path","/login.do");
             request.setAttribute("message","회원가입 확인 이메일이 전송되었습니다.");
             emailTokenService.createEmailToken(makeEmailTokensDTO(joinResult.get().getId(), code[0]));
-            mailService.sendMail(makeSendMailDTO(joinResult.get().getEmail(),code[0]));
+            mailService.sendMail(makeSendMailDTO(joinResult.get().getEmail(),code[0]), new SignUpMail());
 
         }else {
             request.setAttribute("path","javascript:history.back()");
@@ -76,7 +79,6 @@ public class JoinProcController implements Controller {
         return SendMailDTO.builder()
                 .email(email)
                 .token(token)
-                .mailType("singUp")
                 .build();
     }
 }
