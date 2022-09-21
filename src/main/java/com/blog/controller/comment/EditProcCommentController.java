@@ -3,6 +3,7 @@ package com.blog.controller.comment;
 import com.blog.controller.Controller;
 import com.blog.data.dto.comment.CommentDTO;
 import com.blog.manager.SessionManager;
+import com.blog.mapper.CommentMapper;
 import com.blog.service.CommentService;
 
 import javax.servlet.ServletException;
@@ -12,18 +13,15 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 public class EditProcCommentController implements Controller {
-    private String METHOD = "POST";
-
     @Override
-    public String httpMethod() {
-        return METHOD;
+    public String doGet(HttpServletRequest request, HttpServletResponse response) {
+        return null;
     }
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+    public String doPost(HttpServletRequest request, HttpServletResponse response) {
         CommentService commentService = new CommentService();
-        commentService.updateComment(makeDTO(request));
+        commentService.updateComment(CommentMapper.mapping(request));
 
         return "";
     }

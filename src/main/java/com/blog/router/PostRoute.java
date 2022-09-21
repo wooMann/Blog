@@ -9,8 +9,8 @@ public class PostRoute {
     public PostRoute(HashMap<String, Controller> map){
         map.put("/post/list.do",new PostListController());
         map.put("/post/create.do",new CreatePostController());
-        map.put("/post/createProc.do",new CreateProcPostController());
+        map.put("/post/createProc.do",new CreatePostController());
         map.put("/post/edit.do",new EditPostController());
-        map.put("/post/editProc.do",new EditProcPostController());
+        map.put("/post/editProc.do",new EditPostController());
     }
 }

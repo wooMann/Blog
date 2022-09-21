@@ -10,7 +10,7 @@ import java.util.HashMap;
 public class MainRoute {
     public MainRoute(HashMap<String, Controller> map){
         map.put("/login.do",new LoginController());
-        map.put("/loginProc.do",new LoginProcController());
+        map.put("/loginProc.do",new LoginController());
         map.put("/join.do",new JoinController());
         map.put("/joinProc.do",new JoinController());
         map.put("/logout.do",new LogoutController());

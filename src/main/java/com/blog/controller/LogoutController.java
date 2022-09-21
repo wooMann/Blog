@@ -9,15 +9,18 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 public class LogoutController implements Controller {
-    @Override
-    public String httpMethod() {
-        return "GET";
-    }
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public String doGet(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         session.invalidate();
         return "/blog/logout.jsp";
     }
+
+    @Override
+    public String doPost(HttpServletRequest request, HttpServletResponse response) {
+        return null;
+    }
 }
+
+

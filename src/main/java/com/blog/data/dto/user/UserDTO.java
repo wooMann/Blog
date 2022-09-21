@@ -1,12 +1,13 @@
 package com.blog.data.dto.user;
 
 import com.blog.data.entity.User;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @ToString
 public class UserDTO {
     private Integer id;

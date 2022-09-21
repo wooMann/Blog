@@ -11,16 +11,17 @@ import java.io.IOException;
 import java.util.List;
 
 public class PostListController implements Controller {
-    @Override
-    public String httpMethod() {
-        return "GET";
-    }
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public String doGet(HttpServletRequest request, HttpServletResponse response) {
         PostService postService = new PostService();
         List<Post> postList =  postService.finaAllPost();
         request.setAttribute("postList",postList);
         return "/blog/post/postsList.jsp";
+    }
+
+    @Override
+    public String doPost(HttpServletRequest request, HttpServletResponse response) {
+        return null;
     }
 }

@@ -29,8 +29,6 @@ public class MailService {
                     }
                 });
         try {
-            //String content = dto.getMailType().equals("signUp") ? sendMailManager.signUpMail(dto.getToken()).getBody() : sendMailManager.findPasswordMail(dto.getToken()).getBody();
-           //String title = dto.getMailType().equals("signUp") ? sendMailManager.signUpMail(dto.getToken()).getTitle() : sendMailManager.findPasswordMail(dto.getToken()).getTitle();
 
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(sendMailManager.mailTrap().getFrom()));
