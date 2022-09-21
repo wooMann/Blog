@@ -9,7 +9,7 @@ public class LoginMapper {
     public static UserDTO mapping(HttpServletRequest request) {
         return UserDTO.builder()
                 .email(request.getParameter("email"))
-                .password(request.getParameter("password"))
+                .password(Sha256HashGenerator.hashGenerate(request.getParameter("password")))
                 .build();
     }
 }

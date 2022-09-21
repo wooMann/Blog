@@ -6,13 +6,11 @@ import com.blog.manager.SessionManager;
 import com.blog.mapper.CommentMapper;
 import com.blog.service.CommentService;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
 
-public class EditProcCommentController implements Controller {
+public class EditCommentController implements Controller {
     @Override
     public String doGet(HttpServletRequest request, HttpServletResponse response) {
         return null;

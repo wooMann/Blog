@@ -1,9 +1,11 @@
 package com.blog.controller.user;
 
 import com.blog.controller.Controller;
+import com.blog.data.dto.user.UserDTO;
 import com.blog.data.entity.User;
 import com.blog.manager.ResponseManager;
 import com.blog.manager.SessionManager;
+import com.blog.mapper.UserMapper;
 import com.blog.service.UserService;
 
 import javax.servlet.ServletException;
@@ -14,13 +16,9 @@ import java.io.IOException;
 import java.util.Optional;
 
 public class UserEditController implements Controller {
-    @Override
-    public String httpMethod() {
-        return "GET";
-    }
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public String doGet(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         UserService userService = new UserService();
         Optional<User> result = userService.findById((Integer) session.getAttribute(SessionManager.SESSION_ID));
@@ -32,4 +30,24 @@ public class UserEditController implements Controller {
             return "/blog/pathHandler.jsp";
         }
     }
+
+    @Override
+    public String doPost(HttpServletRequest request, HttpServletResponse response) {
+        UserService userService = new UserService();
+        UserDTO dto = UserMapper.mapping(request);
+
+        if(dto.getPassword().equals("")) dto.setPassword(
+                userService.findById(dto.getId()).get().getPassword()
+        );
+
+        Optional<User> result =  userService.updateUser(dto);
+        if (result.isPresent()){
+            ResponseManager.responsePath(request,"/main.do");
+        }else {
+            ResponseManager.responseFailWithMessage(request,"사용자 수정에 실패했습니다");
+        }
+        return "/blog/pathHandler.jsp";
+    }
+
+
 }

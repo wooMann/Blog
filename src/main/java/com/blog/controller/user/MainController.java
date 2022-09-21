@@ -8,13 +8,16 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class MainController implements Controller {
+
     @Override
-    public String httpMethod() {
-        return "GET";
+    public String doGet(HttpServletRequest request, HttpServletResponse response) {
+        return "/blog/main.jsp";
     }
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        return "/blog/main.jsp";
+    public String doPost(HttpServletRequest request, HttpServletResponse response) {
+        return null;
     }
+
+
 }

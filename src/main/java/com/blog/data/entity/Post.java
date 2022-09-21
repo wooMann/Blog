@@ -51,6 +51,9 @@ public class Post {
         this.comments.add(comment);
     }
 
+    @OneToMany(mappedBy = "post")
+    private List<PostTag> postTags = new ArrayList<>();
+
 
 
 

@@ -9,15 +9,18 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class UserListController implements Controller {
-    @Override
-    public String httpMethod() {
-        return "GET";
-    }
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public String doGet(HttpServletRequest request, HttpServletResponse response) {
         UserService userService = new UserService();
         request.setAttribute("userList",userService.findAllUser());
         return "/blog/user/userList.jsp";
     }
+
+    @Override
+    public String doPost(HttpServletRequest request, HttpServletResponse response) {
+        return null;
+    }
+
+
 }
